@@ -34,8 +34,8 @@ def calculate_demographic_data(print_data=True):
 
     # What country has the highest percentage of people that earn >50K?
     #df.groupby('native-country')['salary'].value_counts().unstack(fill_value = 0)
-    counts_country_salary = df.groupby('native-country')['salary'].value_counts().unstack(fill_value = 0)                      # Makes a table counting all salaries grouped by native country
-    counts_country_salary['percentage_of_>50K'] = (counts_country_salary['>50K'] / counts_country_salary.sum(axis=1)) * 100    # Adds a column that calculates the % of people making >50K in given country
+    counts_country_salary = df.groupby('native-country')['salary'].value_counts().unstack(fill_value = 0)                      #Makes a table counting all salaries grouped by native country
+    counts_country_salary['percentage_of_>50K'] = (counts_country_salary['>50K'] / counts_country_salary.sum(axis=1)) * 100    #Adds a column that calculates the % of people making >50K in given country
     #counts_country_salary
     highest_earning_country = counts_country_salary['percentage_of_>50K'].idxmax()
     highest_earning_country_percentage = round(counts_country_salary['percentage_of_>50K'].max(), 1)
