@@ -9,10 +9,10 @@ def calculate_demographic_data(print_data=True):
     race_count = df['race'].value_counts()
 
     # What is the average age of men?
-    average_age_men = df[df.sex == 'Male'].age.mean()
+    average_age_men = round(df[df.sex == 'Male'].age.mean(),1)
 
     # What is the percentage of people who have a Bachelor's degree?
-    percentage_bachelors = df[df.education == 'Bachelors'].shape[0]/df.shape[0]*100
+    percentage_bachelors = round(df[df.education == 'Bachelors'].shape[0]/df.shape[0]*100,1)
 
     # What percentage of people with advanced education (`Bachelors`, `Masters`, or `Doctorate`) make more than 50K?
     # What percentage of people without advanced education make more than 50K?
@@ -25,8 +25,8 @@ def calculate_demographic_data(print_data=True):
     lower_education = len(df[~con1 & con2])
 
     # percentage with salary >50K
-    higher_education_rich = len(df[con1 & con2])/len(df[con1])*100
-    lower_education_rich = len(df[~con1 & con2])/len(df[~con1])*100
+    higher_education_rich = round(len(df[con1 & con2])/len(df[con1])*100,1)
+    lower_education_rich = round(len(df[~con1 & con2])/len(df[~con1])*100,1)
 
     # What is the minimum number of hours a person works per week (hours-per-week feature)?
 
@@ -36,7 +36,7 @@ def calculate_demographic_data(print_data=True):
     con3 = df['hours-per-week'] == min_work_hours
     num_min_workers = len(df[con3])
 
-    rich_percentage = len(df[con2 & con3])/len(df[con3])*100
+    rich_percentage = round(len(df[con2 & con3])/len(df[con3])*100,1)
 
     # What country has the highest percentage of people that earn >50K?
     S1 = pd.DataFrame(df['native-country'].value_counts())
@@ -46,7 +46,7 @@ def calculate_demographic_data(print_data=True):
     highest = S1.sort_values(by='rich_pct', ascending=False).head(1)
     # df[con2].loc['native-country'].value_counts()
     highest_earning_country = highest.index.item()
-    highest_earning_country_percentage = highest.iloc[:,-1].item()
+    highest_earning_country_percentage = round(highest.iloc[:,-1].item(),1)
 
     # Identify the most popular occupation for those who earn >50K in India.
     con4 = df['native-country'] =='India'
